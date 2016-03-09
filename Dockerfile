@@ -3,7 +3,6 @@ ENV	DEBIAN_FRONTEND noninteractive
 
 ENV	ROUNDCUBE_VERSION 1.1.4
 ENV	ROUNDCUBE_INSTALLDIR /var/www/html
-ENV	ROUNDCUBE_DATA_DIR /var/lib/roundcube
 
 # install required packages
 RUN	apt-get update -qq && \
@@ -14,10 +13,10 @@ RUN	apt-get update -qq && \
 	rm -rf /var/lib/{apt,dpkg,cache,log}/
 
 RUN	rm -rf /var/www/html/* && \
-	mkdir ${ROUNDCUBE_DATA_DIR} && \
+	mkdir /var/lib/roundcube && \
 	curl -SL https://downloads.sourceforge.net/project/roundcubemail/roundcubemail/${ROUNDCUBE_VERSION}/roundcubemail-${ROUNDCUBE_VERSION}-complete.tar.gz | tar -xz --strip=1 -C ${ROUNDCUBE_INSTALLDIR} && \
 	cp ${ROUNDCUBE_INSTALLDIR}/config/config.inc.php.sample ${ROUNDCUBE_INSTALLDIR}/config/config.inc.php && \
-	sed -i -e "s|\$config\['db_dsnw'\].*|\$config['db_dsnw'] = 'sqlite:////${ROUNDCUBE_DATA_DIR}/sqlite.db?mode=0646';|" ${ROUNDCUBE_INSTALLDIR}/config/config.inc.php
+	sed -i -e "s|\$config\['db_dsnw'\].*|\$config['db_dsnw'] = 'sqlite:///var/lib/roundcube/sqlite.db?mode=0646';|" ${ROUNDCUBE_INSTALLDIR}/config/config.inc.php
 
 ADD	docker-entrypoint.sh /usr/local/sbin/docker-entrypoint.sh
 
@@ -25,7 +24,7 @@ ENTRYPOINT ["/usr/local/sbin/docker-entrypoint.sh"]
 
 ADD	etc/supervisor/conf.d/ /etc/supervisor/conf.d/
 
-VOLUME [${ROUNDCUBE_DATA_DIR}]
+VOLUME ["/var/lib/roundcube"]
 
 # 25/smtp 80/web 143/imap 
 EXPOSE	25 80 143
