@@ -13,3 +13,6 @@ docker run -d \
 hauptmedia/mailcatcher
 ```
 
+## Connect to Rainloop
+Login: MAILCATCHER_USERNAME*@localhost*
+pass:  MAILCATCHER_PASSWORD

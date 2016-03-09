@@ -56,4 +56,11 @@ if [ ! -d /home/$MAILCATCHER_USERNAME/Maildir ]; then
 	echo "Hello World" | mail $MAILCATCHER_USERNAME@$(hostname)
 fi
 
+
+if [ ! -d /data/logs ]; then
+    mkdir -p /data/logs
+fi
+
+chown www-data:www-data /data -R
+
 exec "$@"
