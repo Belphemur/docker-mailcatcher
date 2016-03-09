@@ -14,5 +14,7 @@ hauptmedia/mailcatcher
 ```
 
 ## Connect to Rainloop
-Login: MAILCATCHER_USERNAME*@localhost*
+
+Login: MAILCATCHER_USERNAME**@localhost**
+
 pass:  MAILCATCHER_PASSWORD
