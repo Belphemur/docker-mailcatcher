@@ -13,6 +13,9 @@ docker run -d \
 hauptmedia/mailcatcher
 ```
 
+### Email folder
+The email are stored in /home/MAILCATCHER_USERNAME/MailDir
+
 ## Connect to Rainloop
 
 Login: MAILCATCHER_USERNAME**@localhost**
