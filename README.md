@@ -10,7 +10,7 @@ You can also access the mailbox via the webmail service which is exposed on port
 docker run -d \
 -e MAILCATCHER_USERNAME=mailcatcher \
 -e MAILCATCHER_PASSWORD=mailcatcher \
-hauptmedia/mailcatcher
+belphemur/mailcatcher-exim-courrier
 ```
 
 ### Email folder
@@ -18,6 +18,17 @@ The email are stored in /home/MAILCATCHER_USERNAME/MailDir
 
 ## Connect to Rainloop
 
-Login: MAILCATCHER_USERNAME**@localhost**
+Login: MAILCATCHER_USERNAME**@localhost** OR just MAILCATCHER_USERNAME
 
 pass:  MAILCATCHER_PASSWORD
+
+### Configuration
+
+The domain **localhost** is already configured in rainloop and set as default domain.
+
+### Admin
+URL : http://DOCKER_IP/?admin
+
+Login: admin
+
+pass: 12345

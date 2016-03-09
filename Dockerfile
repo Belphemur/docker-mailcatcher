@@ -15,6 +15,7 @@ ENTRYPOINT ["/usr/local/sbin/docker-entrypoint.sh"]
 ADD	etc/supervisor/conf.d/ /etc/supervisor/conf.d/
 
 ADD	rainloop/localhost.ini /data/web/data/_data_/_default_/domains/localhost.ini
+ADD	rainloop/application.ini /data/web/data/_data_/_default_/configs/application.ini
 
 # 25/smtp 143/imap 
 EXPOSE	25 143
