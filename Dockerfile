@@ -16,7 +16,7 @@ RUN	rm -rf /var/www/html/* && \
 	mkdir /var/lib/roundcube && \
 	curl -SL https://downloads.sourceforge.net/project/roundcubemail/roundcubemail/${ROUNDCUBE_VERSION}/roundcubemail-${ROUNDCUBE_VERSION}-complete.tar.gz | tar -xz --strip=1 -C ${ROUNDCUBE_INSTALLDIR} && \
 	cp ${ROUNDCUBE_INSTALLDIR}/config/config.inc.php.sample ${ROUNDCUBE_INSTALLDIR}/config/config.inc.php && \
-	sed -i -e "s|\$config\['db_dsnw'\].*|\$config['db_dsnw'] = 'sqlite:///var/lib/roundcube/sqlite.db?mode=0646';|" ${ROUNDCUBE_INSTALLDIR}/config/config.inc.php
+	sed -i -e "s|\$config\['db_dsnw'\].*|\$config['db_dsnw'] = 'sqlite:////var/lib/roundcube/sqlite.db?mode=0646';|" ${ROUNDCUBE_INSTALLDIR}/config/config.inc.php
 
 ADD	docker-entrypoint.sh /usr/local/sbin/docker-entrypoint.sh
 
