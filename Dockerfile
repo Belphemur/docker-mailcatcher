@@ -13,6 +13,7 @@ ADD	docker-entrypoint.sh /usr/local/sbin/docker-entrypoint.sh
 ENTRYPOINT ["/usr/local/sbin/docker-entrypoint.sh"]
 
 ADD	etc/supervisor/conf.d/ /etc/supervisor/conf.d/
+ADD	etc/php5/fpm/ /etc/php5/fpm/
 
 ADD	rainloop/localhost.ini /data/web/data/_data_/_default_/domains/localhost.ini
 ADD	rainloop/application.ini /data/web/data/_data_/_default_/configs/application.ini
