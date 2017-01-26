@@ -1,5 +1,10 @@
 FROM	ubuntu:xenial
 
+ARG VCS_REF
+
+LABEL org.label-schema.vcs-ref=$VCS_REF \
+          org.label-schema.vcs-url="https://github.com/Belphemur/docker-mailcatcher"
+
 ENV APACHE_SERVER_NAME=rainloop.loc \
     APACHE_SERVER_ADMIN=webmaster@rainloop.loc \
     PHP_MAX_POST_SIZE=24M \
