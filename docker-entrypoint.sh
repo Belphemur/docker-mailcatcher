@@ -2,17 +2,22 @@
 
 source apache-conf.sh
 
+MAILCATCHER_HOSTNAME=$(hostname)
+MAILCATCHER_USERNAME=${MAILCATCHER_USERNAME:-mailcatcher}
+MAILCATCHER_PASSWORD=${MAILCATCHER_PASSWORD:-mailcatcher}
+
 IP=$(hostname --ip-address | cut -d" " -f1)
 
-echo Running mailcatcher on ip $IP
+echo "Running mailcatcher on ip $IP ($MAILCATCHER_HOSTNAME)"
+echo
+echo Username: $MAILCATCHER_USERNAME
+echo Password: $MAILCATCHER_PASSWORD
+
 echo
 
 rundir_courier="/var/run/courier"
 rundir="/var/run/courier/authdaemon"
 
-MAILCATCHER_HOSTNAME=$(hostname)
-MAILCATCHER_USERNAME=${MAILCATCHER_USERNAME:-mailcatcher}
-MAILCATCHER_PASSWORD=${MAILCATCHER_PASSWORD:-mailcatcher}
 
 CRYPTED_PASSWORD=$(perl -e 'print crypt($ARGV[0], "password")' $MAILCATCHER_PASSWORD)
 mkdir /home/$MAILCATCHER_USERNAME
@@ -58,11 +63,5 @@ if [ ! -d /home/$MAILCATCHER_USERNAME/Maildir ]; then
 	echo "Hello World" | mail $MAILCATCHER_USERNAME@$(hostname)
 fi
 
-
-if [ ! -d /data/logs ]; then
-    mkdir -p /data/logs
-fi
-
-chown www-data:www-data /data -R
 
 exec dumb-init "$@"
