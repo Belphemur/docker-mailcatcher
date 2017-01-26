@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source apache-conf.sh
+
 IP=$(hostname --ip-address | cut -d" " -f1)
 
 echo Running mailcatcher on ip $IP
@@ -63,4 +65,4 @@ fi
 
 chown www-data:www-data /data -R
 
-exec "$@"
+exec dumb-init "$@"
