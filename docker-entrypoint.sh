@@ -1,5 +1,4 @@
 #!/bin/bash
-
 source apache-conf.sh
 
 MAILCATCHER_HOSTNAME=$(hostname)

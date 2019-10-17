@@ -1,7 +1,9 @@
-FROM	ubuntu:xenial
+FROM	ubuntu:bionic
 
 MAINTAINER Antoine Aflalo <antoine@aaflalo.me>
 
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=GMT
 ARG VCS_REF
 
 LABEL org.label-schema.vcs-ref=$VCS_REF \
@@ -16,8 +18,18 @@ ENV APACHE_SERVER_NAME=rainloop.loc \
     RAINLOOP_ADMIN_LOGIN=admin \
     RAINLOOP_ADMIN_PASSWORD=12345
 
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ARG GPG_FINGERPRINT="3B79 7ECE 694F 3B7B 70F3  11A4 ED7C 49D9 87DA 4591"
+
+# Courrier fixes
+# See  https://bugs.launchpad.net/ubuntu/+source/courier/+bug/1781243
+
+RUN touch /usr/share/man/man5/maildir.courier.5.gz && \
+touch /usr/share/man/man8/deliverquota.courier.8.gz && \
+touch /usr/share/man/man1/maildirmake.courier.1.gz  && \
+touch /usr/share/man/man7/maildirquota.courier.7.gz && \
+touch /usr/share/man/man1/makedat.courier.1.gz
 
 # install required packages
 RUN	apt-get update -qq && \
@@ -33,7 +45,7 @@ RUN mkdir -p /var/lock/apache2 /var/run/apache2 /var/log/supervisor \
 && ln -sf /dev/stderr /var/log/apache2/error.log
 
 # init
-RUN wget -q https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64.deb && \
+RUN wget -q https://github.com/Yelp/dumb-init/releases/download/v1.2.2/dumb-init_1.2.2_amd64.deb && \
   dpkg -i dumb-init_*.deb && rm dumb-init_*.deb
 
 RUN cd /tmp \
