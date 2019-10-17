@@ -49,8 +49,8 @@ RUN wget -q https://github.com/Yelp/dumb-init/releases/download/v1.2.2/dumb-init
   dpkg -i dumb-init_*.deb && rm dumb-init_*.deb
 
 RUN cd /tmp \
- && wget -q https://repository.rainloop.net/v2/webmail/rainloop-community-latest.zip \
- && wget -q https://repository.rainloop.net/v2/webmail/rainloop-community-latest.zip.asc \
+ && wget -q http://www.rainloop.net/repository/webmail/rainloop-community-latest.zip \
+ && wget -q http://www.rainloop.net/repository/webmail/rainloop-community-latest.zip.asc \
  && wget -q https://repository.rainloop.net/RainLoop.asc \
  && echo "Verifying authenticity of rainloop-community-latest.zip using GPG..." \
  && gpg --import RainLoop.asc \
