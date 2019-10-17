@@ -31,14 +31,26 @@ sed "s/upload_max_filesize.*=.*/upload_max_filesize = $PHP_MAX_UPLOAD_SIZE/g" -i
 sed "s/max_file_uploads.*=.*/max_file_uploads = $PHP_MAX_POST/g" -i /etc/php/7.0/apache2/php.ini
 sed "s/max_execution_time.*=.*/max_execution_time = $PHP_MAX_EXECUTION_ZIME/g" -i /etc/php/7.0/apache2/php.ini
 
+
+
+if [ -f  /var/www/html/data/SALT.php  ]; then
+  SALT=$(cat /var/www/html/data/SALT.php)
+else
+  SALT=$(date +'%s')
+  echo -n $SALT > /var/www/html/data/SALT.php
+fi
+
+APP_SALT=$(echo -n ${SALT}_default_${SALT} | md5sum | awk '{ print $1 }')
+ADMIN_PASS_HASH=$(echo -n ${APP_SALT}${RAINLOOP_ADMIN_PASSWORD}${APP_SALT} | md5sum | awk '{ print $1 }')
+
 if [ -f /var/www/html/data/_data_/_default_/configs/application.ini  ]; then
   sed "s/admin_login.*=.*/admin_login = \"$RAINLOOP_ADMIN_LOGIN\"/g" -i /var/www/html/data/_data_/_default_/configs/application.ini
-  sed "s/admin_password.*=.*/admin_password = \"$RAINLOOP_ADMIN_PASSWORD\"/g" -i /var/www/html/data/_data_/_default_/configs/application.ini
+  sed "s/admin_password.*=.*/admin_password = \"$ADMIN_PASS_HASH\"/g" -i /var/www/html/data/_data_/_default_/configs/application.ini
 else
   mkdir -p /var/www/html/data/_data_/_default_/configs/
   echo "[security]" >> /var/www/html/data/_data_/_default_/configs/application.ini
   echo "admin_login = $RAINLOOP_ADMIN_LOGIN" >> /var/www/html/data/_data_/_default_/configs/application.ini
-  echo "admin_password = $RAINLOOP_ADMIN_PASSWORD" >> /var/www/html/data/_data_/_default_/configs/application.ini
+  echo "admin_password = $ADMIN_PASS_HASH" >> /var/www/html/data/_data_/_default_/configs/application.ini
 fi
 
 chown -R www-data.www-data /var/www/html/data
