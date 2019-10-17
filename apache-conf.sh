@@ -32,8 +32,8 @@ sed "s/max_file_uploads.*=.*/max_file_uploads = $PHP_MAX_POST/g" -i /etc/php/7.0
 sed "s/max_execution_time.*=.*/max_execution_time = $PHP_MAX_EXECUTION_ZIME/g" -i /etc/php/7.0/apache2/php.ini
 
 if [ -f /var/www/html/data/_data_/_default_/configs/application.ini  ]; then
-  sed "s/admin_login.*=.*/admin_login = $RAINLOOP_ADMIN_LOGIN/g" -i /var/www/html/data/_data_/_default_/configs/application.ini
-  sed "s/admin_password.*=.*/admin_password = $RAINLOOP_ADMIN_PASSWORD/g" -i /var/www/html/data/_data_/_default_/configs/application.ini
+  sed "s/admin_login.*=.*/admin_login = \"$RAINLOOP_ADMIN_LOGIN\"/g" -i /var/www/html/data/_data_/_default_/configs/application.ini
+  sed "s/admin_password.*=.*/admin_password = \"$RAINLOOP_ADMIN_PASSWORD\"/g" -i /var/www/html/data/_data_/_default_/configs/application.ini
 else
   mkdir -p /var/www/html/data/_data_/_default_/configs/
   echo "[security]" >> /var/www/html/data/_data_/_default_/configs/application.ini
