@@ -10,8 +10,7 @@ ARG BUILD_DATE
 
 LABEL org.label-schema.vcs-ref=$VCS_REF \
           org.label-schema.vcs-url="https://github.com/Belphemur/docker-mailcatcher" \
-          org.label-schema.build-date=${BUILD_DATE} \
-          org.label-schema.name="MailCatcher"
+          org.label-schema.build-date=${BUILD_DATE}
 
 ENV APACHE_SERVER_NAME=rainloop.loc \
     APACHE_SERVER_ADMIN=webmaster@rainloop.loc \
