@@ -63,4 +63,4 @@ if [ ! -d /home/$MAILCATCHER_USERNAME/Maildir ]; then
 fi
 
 
-exec dumb-init "$@"
+exec tini -- "$@"

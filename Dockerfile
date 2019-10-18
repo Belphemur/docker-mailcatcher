@@ -1,4 +1,4 @@
-FROM	ubuntu:bionic
+FROM	debian:buster-slim
 
 MAINTAINER Antoine Aflalo <antoine@aaflalo.me>
 
@@ -25,7 +25,11 @@ ARG GPG_FINGERPRINT="3B79 7ECE 694F 3B7B 70F3  11A4 ED7C 49D9 87DA 4591"
 # Courrier fixes
 # See  https://bugs.launchpad.net/ubuntu/+source/courier/+bug/1781243
 
-RUN touch /usr/share/man/man5/maildir.courier.5.gz && \
+RUN mkdir -p /usr/share/man/man5/ && \
+mkdir -p /usr/share/man/man8 && \
+mkdir -p /usr/share/man/man1 && \
+mkdir -p /usr/share/man/man7 && \
+touch /usr/share/man/man5/maildir.courier.5.gz && \
 touch /usr/share/man/man8/deliverquota.courier.8.gz && \
 touch /usr/share/man/man1/maildirmake.courier.1.gz  && \
 touch /usr/share/man/man7/maildirquota.courier.7.gz && \
@@ -45,8 +49,8 @@ RUN mkdir -p /var/lock/apache2 /var/run/apache2 /var/log/supervisor \
 && ln -sf /dev/stderr /var/log/apache2/error.log
 
 # init
-RUN wget -q https://github.com/Yelp/dumb-init/releases/download/v1.2.2/dumb-init_1.2.2_amd64.deb && \
-  dpkg -i dumb-init_*.deb && rm dumb-init_*.deb
+RUN wget -q https://github.com/krallin/tini/releases/download/v0.18.0/tini_0.18.0-amd64.deb && \
+  dpkg -i tini_*.deb && rm tini_*.deb
 
 RUN cd /tmp \
  && wget -q http://www.rainloop.net/repository/webmail/rainloop-community-latest.zip \
