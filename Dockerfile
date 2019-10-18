@@ -3,6 +3,7 @@ FROM	debian:buster-slim
 MAINTAINER Antoine Aflalo <antoine@aaflalo.me>
 
 ARG DEBIAN_FRONTEND=noninteractive
+
 ENV TZ=GMT
 ARG VCS_REF
 
@@ -21,6 +22,9 @@ ENV APACHE_SERVER_NAME=rainloop.loc \
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 ARG GPG_FINGERPRINT="3B79 7ECE 694F 3B7B 70F3  11A4 ED7C 49D9 87DA 4591"
+
+ARG TINI_VERSION="v0.18.0"
+ARG GPG_TINY_KEY="595E85A6B1B4779EA4DAAEC70B588DFF0527A9B7"
 
 # Courrier fixes
 # See  https://bugs.launchpad.net/ubuntu/+source/courier/+bug/1781243
@@ -48,9 +52,16 @@ RUN mkdir -p /var/lock/apache2 /var/run/apache2 /var/log/supervisor \
 && ln -sf /dev/stdout /var/log/apache2/other_vhosts_access.log \
 && ln -sf /dev/stderr /var/log/apache2/error.log
 
+# Disable IPv6
+# See https://github.com/inversepath/usbarmory-debian-base_image/issues/9
+RUN mkdir ~/.gnupg && echo "disable-ipv6" >> ~/.gnupg/dirmngr.conf
+
 # init
-RUN wget -q https://github.com/krallin/tini/releases/download/v0.18.0/tini_0.18.0-amd64.deb && \
-  dpkg -i tini_*.deb && rm tini_*.deb
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini.asc /tini.asc
+RUN gpg --batch --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys ${GPG_TINY_KEY} \
+ && gpg --batch --verify /tini.asc /tini \
+ && chmod +x /tini
 
 RUN cd /tmp \
  && wget -q http://www.rainloop.net/repository/webmail/rainloop-community-latest.zip \
