@@ -1,14 +1,17 @@
 FROM	debian:buster-slim
 
-MAINTAINER Antoine Aflalo <antoine@aaflalo.me>
+MAINTAINER Antoine Aflalo <antoine+docker@aaflalo.me>
 
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV TZ=GMT
 ARG VCS_REF
+ARG BUILD_DATE
 
 LABEL org.label-schema.vcs-ref=$VCS_REF \
-          org.label-schema.vcs-url="https://github.com/Belphemur/docker-mailcatcher"
+          org.label-schema.vcs-url="https://github.com/Belphemur/docker-mailcatcher" \
+          org.label-schema.build-date=${BUILD_DATE} \
+          org.label-schema.name="MailCatcher"
 
 ENV APACHE_SERVER_NAME=rainloop.loc \
     APACHE_SERVER_ADMIN=webmaster@rainloop.loc \

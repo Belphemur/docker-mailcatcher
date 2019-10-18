@@ -1,7 +1,7 @@
 # Rainloop Webmail with Catch All
 
-[![](https://images.microbadger.com/badges/image/belphemur/mailcatcher-exim-courrier)](https://microbadger.com/images/belphemur/mailcatcher-exim-courrier "Get your own image badge on microbadger.com")
-[![](https://images.microbadger.com/badges/version/belphemur/mailcatcher-exim-courrier)](https://microbadger.com/images/belphemur/mailcatcher-exim-courrier "Get your own version badge on microbadger.com")
+[![](https://images.microbadger.com/badges/image/belphemur/mailcatcher-exim-courrier.svg)](https://microbadger.com/images/belphemur/mailcatcher-exim-courrier "Get your own image badge on microbadger.com")
+[![](https://images.microbadger.com/badges/version/belphemur/mailcatcher-exim-courrier.svg)](https://microbadger.com/images/belphemur/mailcatcher-exim-courrier "Get your own version badge on microbadger.com")
 [![](https://img.shields.io/docker/stars/belphemur/mailcatcher-exim-courrier.svg)](https://hub.docker.com/r/belphemur/mailcatcher-exim-courrier "Click to view the image on Docker Hub")
 [![](https://img.shields.io/docker/pulls/belphemur/mailcatcher-exim-courrier.svg)](https://hub.docker.com/r/belphemur/mailcatcher-exim-courrier "Click to view the image on Docker Hub")
 
