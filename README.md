@@ -7,7 +7,7 @@
 
 ## Introduction
 
-This docker image installs Rainloop Webmail on Ubuntu Xenial.
+This docker image installs Rainloop Webmail on Debian Buster.
 
 A documentation can be found here:
 [http://www.rainloop.net/](http://www.rainloop.net/)
